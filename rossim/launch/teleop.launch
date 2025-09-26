@@ -1,0 +1,9 @@
+<launch>
+	<node type="rviz" name="rviz" pkg="rviz" args="-d /home/redkas/Desktop/VREP/scenes/TFG/mapeo2d.rviz "/>	
+	<node pkg="rossim" type="stopper.py" name="stopper" />
+<!-- Launch vrep and roscore -->
+    <arg name="scene" default=""/>
+    <node name="vrep" pkg="vrep_ros_launcher" type="vrep" respawn="false" output="screen" args="$(arg scene)"/>  
+
+
+</launch>

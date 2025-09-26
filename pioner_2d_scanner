@@ -1,0 +1,32 @@
+-- set velocity
+--function velocity_callback(msg)
+    -- This is the sub_velocity callback function
+--     sim.addStatusbarMessage('sub_velocity receiver: ' .. msg.linear.x)
+--    sim.auxiliaryConsolePrint(console_debug,'linear: ' .. msg.linear.x)
+--    sim.auxiliaryConsolePrint(console_debug,' angular: ' .. msg.angular.z .. '\n')
+--    vLeft = 6*msg.linear.x - 0.6*msg.angular.z
+--    vRight = 6*msg.linear.x + 0.6*msg.angular.z
+--    sim.setJointTargetVelocity(LeftMotor,vLeft)
+--    sim.setJointTargetVelocity(RightMotor,vRight)
+--end
+-- pioneer car
+car = sim.getObjectHandle("Pioneer_p3dx")
+LeftMotor=sim.getObjectHandle("Pioneer_p3dx_leftMotor")
+RightMotor=sim.getObjectHandle("Pioneer_p3dx_rightMotor")
+
+function setLeftMotorVelocity_cb(msg)
+-- Left motor speed subscriber callback
+sim.setJointTargetVelocity(LeftMotor,msg.data)
+end
+
+function setRightMotorVelocity_cb(msg)
+--Right motor speed subscriber callback
+sim.setJointTargetVelocity(RightMotor,msg.data)
+end
+
+if (sim_call_type==sim.syscb_init) then 
+
+sub_leftMotor = simROS.subscribe('/'..'leftMotorSpeed','std_msgs/Float32','setLeftMotorVelocity_cb')
+sub_rightMotor = simROS.subscribe('/'..'rightMotorSpeed','std_msgs/Float32','setRightMotorVelocity_cb')
+end
+

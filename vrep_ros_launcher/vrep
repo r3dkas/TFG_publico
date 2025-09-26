@@ -1,0 +1,8 @@
+#!/bin/bash
+# wrapper to launch V-REP from a ROS launch file
+
+# change this line if needed
+export VREP_ROOT=~/Desktop/VREP
+
+cd $VREP_ROOT
+./vrep.sh scenes/TFG/Laser3d.ttt "$1"

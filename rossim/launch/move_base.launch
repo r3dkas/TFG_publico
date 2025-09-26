@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Load the move_base node -->
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+        <!-- Global and local costmaps -->
+        <rosparam file="$(find rossim)/config/navegacion/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find rossim)/config/navegacion/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        
+        <!-- Use your custom costmap topics -->
+        <param name="global_costmap/global_frame" value="map" />
+        <param name="global_costmap/robot_base_frame" value="base_link" />
+        <param name="global_costmap/costmap_topic" value="/slope_costmap" />
+        
+        <param name="local_costmap/global_frame" value="map" />
+        <param name="local_costmap/robot_base_frame" value="base_link" />
+        <param name="local_costmap/costmap_topic" value="/slope_costmap" />
+        
+    </node>
+    
+    <!-- Additional move_base parameters -->
+
+    <include file="$(find rossim)/config/navegacion/move_base.xml">
+    </include>
+
+</launch>

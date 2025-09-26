@@ -1,0 +1,57 @@
+# Parameters specific to the move_base node
+
+# Goal tolerance parameters
+xy_goal_tolerance: 0.2   # Tolerance for reaching the goal in x and y (in meters)
+yaw_goal_tolerance: 0.2  # Tolerance for reaching the goal in yaw (in radians)
+
+# Parameters for the global planner
+GlobalPlanner:
+  # Type of global planner plugin
+  base_global_planner: "navfn/NavfnROS"
+
+  # Parameters for the NavfnROS global planner
+  NavfnROS:
+    # Default tolerance for planning (in meters)
+    tolerance: 0.0
+
+# Parameters for the local planner
+#LocalPlanner:
+#  # Type of local planner plugin
+#  base_local_planner: "base_local_planner/TrajectoryPlannerROS"
+#
+#  # Parameters for the DWAPlannerROS local planner
+#  DWAPlannerROS:
+#
+#    pose_topic: "/vrep/robot_pose"
+#
+#    # The maximum linear velocity of the robot (in m/s)
+#    max_vel_x: 0.1
+#
+#    # The minimum linear velocity of the robot (in m/s)
+#    min_vel_x: 0.01
+#
+#    # The maximum angular velocity of the robot (in rad/s)
+#    max_vel_theta: 1.0
+#
+#    # The minimum angular velocity of the robot (in rad/s)
+#    min_vel_theta: -1.0
+#
+#    # The maximum linear acceleration of the robot (in m/s^2)
+#    max_accel_x: 0.5
+#
+#    # The maximum angular acceleration of the robot (in rad/s^2)
+#    max_accel_theta: 1.0
+#
+## Recovery behavior parameters
+#RecoveryBehavior:
+#  # Whether to use the clear costmap recovery behavior
+#  enabled: true
+#
+## Trajectory planner parameters
+#TrajectoryPlannerROS:
+#  # The time it takes to achieve maximum velocity (in seconds)
+#  acc_lim_x: 2.5
+#
+#  # The time it takes to achieve maximum rotational velocity (in seconds)
+#  acc_lim_theta: 3.2
+#

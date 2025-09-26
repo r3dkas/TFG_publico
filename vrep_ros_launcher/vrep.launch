@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Launch V-REP and roscore -->
+    <arg name="scene" default=""/>
+    <node name="vrep" pkg="vrep_ros_launcher" type="vrep" respawn="false" output="screen" args="$(arg scene)"/>   
+</launch>

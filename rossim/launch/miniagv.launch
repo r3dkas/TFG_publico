@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+<!--node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" output="screen" clear_params="true">
+  <rosparam file="$(find rossim)/config/navegacion/costmap_global_params.yaml" command="load" ns="global_costmap" />
+  <rosparam file="$(find rossim)/config/navegacion/costmap_local_params.yaml"  command="load" ns="local_costmap" />
+  <rosparam file="$(find rossim)/config/navegacion/costmap_global_params_plugins.yaml" command="load" ns="global_costmap" />
+  <rosparam file="$(find rossim)/config/navegacion/costmap_local_params_plugins.yaml"  command="load" ns="local_costmap" />
+  <remap from="map" to="/grid_map" />
+</node-->
+
+  <arg name="prefix" default="" />
+  <arg name="namespace" default="$(arg prefix)" doc="Namespace to push all topics into."/>
+
+  <include file="$(find rossim)/config/navegacion/move_base.xml">
+    <arg name="prefix" value="$(arg prefix)" />
+  </include>
+
+</launch> 

@@ -1,0 +1,22 @@
+global_costmap:
+    global_frame: map
+    robot_base_frame: base_link
+    #static_map: true
+    rolling_window: true
+    update_frequency: 5.0 ##1.0 #10.0
+    publish_frequency: 5.0 ##1.0 #100.0
+    raytrace_range: 8.0
+    resolution: 0.05
+    z_resolution: 0.2
+    width: 100.0  # Increase width as needed
+    height: 100.0 # Increase height as needed
+    origin_x: 0.0 # Adjust origin to cover sensor range
+    origin_y: 0.0 # Adjust origin to cover sensor range
+    z_voxels: 1
+    origin_z: 3.0
+    footprint_padding: 0.1
+    inflation:
+      cost_scaling_factor:  2.0 #3.0  # Exponential rate at which the obstacle cost drops off (default: 10). Must be chosen so that the cost value is > 0 at robot's circumscribed radius.
+      inflation_radius:     10.0 #0.65  # Max. distance from an obstacle at which costs are incurred for planning paths. Must be > robot's circumscribed radius.
+
+    # plugins are loaded via costmap_global_params_plugins_[mapping|planning].yaml

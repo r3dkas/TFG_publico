@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!-- Simular tiempo -->
+   
+  <param name="/use_sim_time" value="true" />
+
+  <!-- Transformar PointCloud a PointCloud2 -->
+
+  <node pkg="rossim" type="pcl_pcl2.py" name="PCL_a_PCL2"/> 
+
+  <!-- Publicar pose con covarianza -->
+
+  <node pkg="rossim" type="pose_covarianza.py" name="POSE_COV"/>
+
+  <param name="robot_description"
+  textfile="$(find rossim)/config/rambler_urdf/rambler.urdf" />
+
+  <!-- Script de gridMap a OccupancyGrid -->
+
+  <node pkg="rossim" type="gridmap2OccupancyGrid" name="gridmap"/>  
+
+  <!-- Publicar tf pose-->
+  <node pkg="elevation_mapping_demos" type="tf_to_pose_publisher.py" name="pose_publisher">
+    <param name="from_frame" type="string" value="odom"/>
+    <param name="to_frame" type="string" value="base_link"/>
+  </node>
+
+  <!-- Iniciar filtro  para muestreo de point cloud.-->
+  <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen"/>
+  <node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
+    <remap from="~input" to="/velodyne/points2"/>
+    <remap from="~output" to="/velodyne/points2_downsampled"/>
+    <rosparam>
+      filter_field_name: z
+      filter_limit_min: 0.01
+      filter_limit_max: 50.0  
+      filter_limit_negative: False
+      leaf_size: 0.05  
+    </rosparam>
+  </node>
+
+  <!-- Iniciar nodo elevation mapping. -->
+  <node pkg="elevation_mapping" type="elevation_mapping" name="elevation_mapping" output="screen">
+    <rosparam command="load" file="$(find rossim)/config/rambler_robot.yaml"/>
+    <rosparam command="load" file="$(find rossim)/config/postprocessor_pipeline.yaml"/>
+  </node>
+
+  <!-- Launch RViz with the demo configuration. -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find elevation_mapping_demos)/rviz/tfg.rviz" required="true"/>
+
+</launch>
